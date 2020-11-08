@@ -11,7 +11,10 @@ Você pode fazer a pré-visualização do projeto neste link:
 # Algumas Informações
 
 Você pode ver as informações mais detalhadas do PokeMão, ao clicar na lista a esquerda.
-Adicionei alguns alerts na tela simples pra auxiliar no uso
+
+Adicionei alguns alerts na tela simples pra auxiliar no uso.
+
+Apanhei em algumas questões de utilização de variáveis entre componentização, tenho que estudar mais essa bagaça.
 
 
 ## Faltou implementar
