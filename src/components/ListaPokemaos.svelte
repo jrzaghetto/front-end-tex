@@ -1,94 +1,84 @@
 <script>
-  import ky from 'ky'
-  import PokemonBox from './PokemonBox.svelte'
-  import { tweened } from 'svelte/motion';
-	import { cubicOut } from 'svelte/easing';
+  import ky from "ky";
+  import PokemonBox from "./PokemonBox.svelte";
 
-  let id = 1
-  let pokemon = {}
-  $: getPokemon(id)
-  export let test = 1;
+  let id = 1;
+  let pokemon = {};
+  $: getPokemon(id);
 
-  const progress = tweened(30, {
-		duration: 400,
-		easing: cubicOut
-  });
-
-  export let pokes = [1]
+  export let pokes = [1];
 
   async function getPokemon(id) {
-    const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${id}/`
-    const pokemonSpecieURL = `https://pokeapi.co/api/v2/pokemon-species/${id}/`
+    const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${id}/`;
+    const pokemonSpecieURL = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
 
-    const pokemonGeneral = await ky.get(pokemonURL).json()
-    const pokemonSpecie = await ky.get(pokemonSpecieURL).json()
+    const pokemonGeneral = await ky.get(pokemonURL).json();
+    const pokemonSpecie = await ky.get(pokemonSpecieURL).json();
 
     const {
-        // id,
-        name,
-        types,
-        sprites,
-        abilities,
-        stats,
-        height,
-        weight
-      } = pokemonGeneral
+      // id,
+      name,
+      types,
+      sprites,
+      abilities,
+      stats,
+      height,
+      weight,
+    } = pokemonGeneral;
 
-      const {
-        genera
-      } = pokemonSpecie
+    const { genera } = pokemonSpecie;
 
-    const typesTratado = []
-    for(var i = 0; i < types.length; i++) {
-      typesTratado.push(types[i].type["name"])
+    const typesTratado = [];
+    for (var i = 0; i < types.length; i++) {
+      typesTratado.push(types[i].type["name"]);
     }
 
-    const abilitiesTratado = []
-    for(var i = 0; i < abilities.length; i++) {
-      abilitiesTratado.push(abilities[i].ability["name"])
+    const abilitiesTratado = [];
+    for (var i = 0; i < abilities.length; i++) {
+      abilitiesTratado.push(abilities[i].ability["name"]);
     }
 
-    const statsTratado = {}
-    for(var i = 0; i < stats.length; i++) {
-      statsTratado[stats[i].stat["name"]] = stats[i].base_stat
+    const statsTratado = {};
+    for (var i = 0; i < stats.length; i++) {
+      statsTratado[stats[i].stat["name"]] = stats[i].base_stat;
     }
 
-    const speciesTratado = [genera[7].genus]
+    const speciesTratado = [genera[7].genus];
 
-    const heightTratado = height / 10
+    const heightTratado = height / 10;
 
-    const weightTratado = weight / 10
+    const weightTratado = weight / 10;
 
-    const spriteGrande = sprites.other.dream_world.front_default
+    const spriteGrande = sprites.other.dream_world.front_default;
 
-    const spriteAnimado = sprites.versions["generation-v"]["black-white"].animated.front_default
+    const spriteAnimado =
+      sprites.versions["generation-v"]["black-white"].animated.front_default;
 
-    const hp = statsTratado.hp
-    const attack = statsTratado.attack
-    const defense = statsTratado.defense
-    const specialAttack = statsTratado["special-attack"]
-    const specialDefense = statsTratado["special-defense"]
-    const speed = statsTratado.speed
+    const hp = statsTratado.hp;
+    const attack = statsTratado.attack;
+    const defense = statsTratado.defense;
+    const specialAttack = statsTratado["special-attack"];
+    const specialDefense = statsTratado["special-defense"];
+    const speed = statsTratado.speed;
 
-    
-    return pokemon = {
-      "nationalN": id,
-      "name": name, 
-      "hp": hp,
-      "attack": attack,
-      "defense": defense,
-      "specialAttack": specialAttack,
-      "specialDefense": specialDefense,
-      "speed": speed,
-      "type": typesTratado,
-      "species": speciesTratado, 
-      "sprites": sprites,
-      "spriteGrande": spriteGrande,
-      "spriteAnimado": spriteAnimado,
-      "abilities": abilitiesTratado,
-      "height": heightTratado,
-      "weight": weightTratado
-    }
+    return (pokemon = {
+      nationalN: id,
+      name: name,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
+      type: typesTratado,
+      species: speciesTratado,
+      sprites: sprites,
+      spriteGrande: spriteGrande,
+      spriteAnimado: spriteAnimado,
+      abilities: abilitiesTratado,
+      height: heightTratado,
+      weight: weightTratado,
+    });
   }
 </script>
 
@@ -104,14 +94,6 @@
     justify-items: start;
     text-align: left;
     font-weight: 300;
-  }
-
-  .grass {
-    background-color: #7c5 !important;
-  }
-
-  .poison {
-    background-color:#a59 !important;
   }
 
   .grid-inline {
@@ -133,10 +115,9 @@
 
   .pokemon-detalhes {
     display: grid;
-    grid-template-areas: 
-    "imagem-pokemon detalhes-pokemon"
-    "status-pokemon status-pokemon"
-    ;
+    grid-template-areas:
+      "imagem-pokemon detalhes-pokemon"
+      "status-pokemon status-pokemon";
     margin: 10px 0px 0px 0px;
     justify-items: start;
     width: 100%;
@@ -147,7 +128,6 @@
     width: 100%;
   }
 
-
   .infos {
     display: grid;
     flex-direction: row;
@@ -155,14 +135,14 @@
 
   .titulos {
     color: #737373;
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: normal;
     text-align: right;
   }
 
   .titulos-status {
     color: #737373;
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: normal;
     text-align: center;
   }
@@ -192,124 +172,36 @@
 
   .barra {
     background-color: #ff7f0f !important;
-    height: .75rem;
+    height: 0.75rem;
     border-radius: 4px;
     background-color: #a3a3a3;
     border: 1px solid #737373;
-    border-color: rgba(0,0,0,0.15);
+    border-color: rgba(0, 0, 0, 0.15);
     margin-left: 15px;
   }
 
   .capitalize {
     text-transform: capitalize;
   }
-
-  .grid-inline {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid #ccc;
-    padding: 5px 0px 5px 0px;
-    margin-left: 20px;
-  }
-
-  .grid-inline-tres {
-    display: grid;
-    grid-template-columns: 2fr 1fr 6fr;
-    border-top: 1px solid #ccc;
-    padding: 5px 0px 5px 0px;
-    margin-left: 20px;
-    align-items: center;
-  }
-
-  .pokemon-detalhes {
-    display: grid;
-    grid-template-areas: 
-    "imagem-pokemon detalhes-pokemon"
-    "status-pokemon status-pokemon"
-    ;
-    margin: 10px 0px 0px 0px;
-    justify-items: start;
-    width: 100%;
-  }
-
-  .detalhes-pokemon {
-    grid-area: detalhes-pokemon;
-    width: 100%;
-  }
-
-
-  .infos {
-    display: grid;
-    flex-direction: row;
-  }
-
-  .titulos {
-    color: #737373;
-    font-size: .875rem;
-    font-weight: normal;
-    text-align: right;
-  }
-
-  .titulos-status {
-    color: #737373;
-    font-size: .875rem;
-    font-weight: normal;
-    text-align: center;
-  }
-
-  .textos {
-    text-align: left;
-    margin-left: 20px;
-  }
-
-  .textos-status {
-    text-align: center;
-  }
-
-  .imagem-pokemon {
-    grid-area: imagem-pokemon;
-  }
-
-  .status-pokemon {
-    grid-area: status-pokemon;
-    width: 100%;
-  }
-
-  .status-pokemon h2 {
-    margin-bottom: 5px;
-  }
-
-  progress {
-		display: block;
-		width: 100%;
-	}
-
-  .capitalize {
-    text-transform: capitalize;
-  }
-
 </style>
 
 <div class="conteudo">
   <div>
     <h5>Lista de Pokemãos</h5>
-    <!-- <PokemonBox id={id} on:click="{() => getPokemon(id)}"/>
-    <PokemonBox id={'pikachu'} on:click="{() => getPokemon('pikachu')}"/> -->
-      {#each pokes as poke}
-        <PokemonBox id={poke} on:click="{() => getPokemon(poke)}"/>
-      {/each}
+    {#each pokes as poke}
+      <PokemonBox id={poke} on:click={() => getPokemon(poke)} />
+    {/each}
   </div>
-  
-  
+
   <div>
     <h5>Detalhes</h5>
     <div class="pokemon-detalhes">
       <div class="imagem-pokemon">
-        <img 
-        src={pokemon.spriteGrande}
-        alt="bulbasaur"
-        height="230"
-        style="max-width: 230px;"/>
+        <img
+          src={pokemon.spriteGrande}
+          alt="bulbasaur"
+          height="230"
+          style="max-width: 230px;" />
       </div>
       <div class="detalhes-pokemon">
         <div class="titulo-pokemon capitalize">
@@ -317,44 +209,24 @@
         </div>
         <div class="infos">
           <div class="grid-inline">
-            <div class="titulos">
-              <span>National N</span>
-            </div>
-            <div class="textos">
-              <span>{pokemon.nationalN}</span>
-            </div>
+            <div class="titulos"><span>National N</span></div>
+            <div class="textos"><span>{pokemon.nationalN}</span></div>
           </div>
           <div class="grid-inline">
-            <div class="titulos">
-              <span>Type</span>
-            </div>
-            <div class="textos capitalize">
-              <span>{pokemon.type}</span>
-            </div>
+            <div class="titulos"><span>Type</span></div>
+            <div class="textos capitalize"><span>{pokemon.type}</span></div>
           </div>
           <div class="grid-inline">
-            <div class="titulos">
-              <span>Species</span>
-            </div>
-            <div class="textos">
-              <span>{pokemon.species}</span>
-            </div>
+            <div class="titulos"><span>Species</span></div>
+            <div class="textos"><span>{pokemon.species}</span></div>
           </div>
           <div class="grid-inline">
-            <div class="titulos">
-              <span>Height</span>
-            </div>
-            <div class="textos">
-              <span>{pokemon.height} m</span>
-            </div>
+            <div class="titulos"><span>Height</span></div>
+            <div class="textos"><span>{pokemon.height} m</span></div>
           </div>
           <div class="grid-inline">
-            <div class="titulos">
-              <span>Weight</span>
-            </div>
-            <div class="textos">
-              <span>{pokemon.weight} kg</span>
-            </div>
+            <div class="titulos"><span>Weight</span></div>
+            <div class="textos"><span>{pokemon.weight} kg</span></div>
           </div>
         </div>
       </div>
@@ -364,75 +236,57 @@
         </div>
         <div class="infos">
           <div class="grid-inline-tres">
-            <div class="titulos-status">
-              <span>HP</span>
-            </div>
-            <div class="textos-status">
-              <span>{pokemon.hp}</span>
-            </div>
+            <div class="titulos-status"><span>HP</span></div>
+            <div class="textos-status"><span>{pokemon.hp}</span></div>
             <div class="barra" style="width: {(pokemon.hp / 180) * 100}%">
-              <span></span>
+              <span />
             </div>
           </div>
           <div class="grid-inline-tres">
-            <div class="titulos-status">
-              <span>Attack</span>
-            </div>
-            <div class="textos-status">
-              <span>{pokemon.attack}</span>
-            </div>
+            <div class="titulos-status"><span>Attack</span></div>
+            <div class="textos-status"><span>{pokemon.attack}</span></div>
             <div class="barra" style="width: {(pokemon.attack / 180) * 100}%">
-              <span></span>
+              <span />
             </div>
           </div>
           <div class="grid-inline-tres">
-            <div class="titulos-status">
-              <span>Defense</span>
-            </div>
-            <div class="textos-status">
-              <span>{pokemon.defense}</span>
-            </div>
+            <div class="titulos-status"><span>Defense</span></div>
+            <div class="textos-status"><span>{pokemon.defense}</span></div>
             <div class="barra" style="width: {(pokemon.defense / 180) * 100}%">
-              <span></span>
+              <span />
             </div>
           </div>
           <div class="grid-inline-tres">
-            <div class="titulos-status">
-              <span>Special-Attack</span>
-            </div>
+            <div class="titulos-status"><span>Special-Attack</span></div>
             <div class="textos-status">
               <span>{pokemon.specialAttack}</span>
             </div>
-            <div class="barra" style="width: {(pokemon.specialAttack / 180) * 100}%">
-              <span></span>
+            <div
+              class="barra"
+              style="width: {(pokemon.specialAttack / 180) * 100}%">
+              <span />
             </div>
           </div>
           <div class="grid-inline-tres">
-            <div class="titulos-status">
-              <span>Special-Defense</span>
-            </div>
+            <div class="titulos-status"><span>Special-Defense</span></div>
             <div class="textos-status">
               <span>{pokemon.specialDefense}</span>
             </div>
-            <div class="barra" style="width: {(pokemon.specialDefense / 180) * 100}%">
-              <span></span>
+            <div
+              class="barra"
+              style="width: {(pokemon.specialDefense / 180) * 100}%">
+              <span />
             </div>
           </div>
           <div class="grid-inline-tres">
-            <div class="titulos-status">
-              <span>Speed</span>
-            </div>
-            <div class="textos-status">
-              <span>{pokemon.speed}</span>
-            </div>
+            <div class="titulos-status"><span>Speed</span></div>
+            <div class="textos-status"><span>{pokemon.speed}</span></div>
             <div class="barra" style="width: {(pokemon.speed / 180) * 100}%">
-              <span></span>
+              <span />
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
