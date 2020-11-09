@@ -2,7 +2,6 @@
 import AddPoke from "./components/AddPoke.svelte";
 import ListaPokemaos from "./components/ListaPokemaos.svelte";
 import Nav from "./components/Nav.svelte";
-	let name = 'World';
 	let pokesSelecionados = [1]
 
 	function changePokes() {
@@ -23,21 +22,6 @@ import Nav from "./components/Nav.svelte";
   }
 </script>
 
-
-
-<main>
-	<!-- <h1>PokeMãos!</h1> -->
-	<img src="images/pokemaos.png" alt="logo">
-	<p>--</p>
-
-	<div id="container">
-		<Nav />
-		<AddPoke on:submit={changePokes}/>
-		<ListaPokemaos pokes={pokesSelecionados}/>
-	</div>
-
-</main>
-
 <style>
 	main {
 		text-align: center;
@@ -57,3 +41,18 @@ import Nav from "./components/Nav.svelte";
 		}
 	}
 </style>
+
+
+
+<main>
+	<!-- <h1>PokeMãos!</h1> -->
+	<img src="images/pokemaos.png" alt="logo">
+	<p>--</p>
+
+	<div id="container">
+		<Nav />
+		<AddPoke on:submit={changePokes}/>
+		<ListaPokemaos pokes={pokesSelecionados}/>
+	</div>
+
+</main>
