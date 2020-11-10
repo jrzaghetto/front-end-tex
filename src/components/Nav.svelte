@@ -70,7 +70,7 @@
 <div class="topnav">
   <img {src} alt="asd" width="80px" />
   <div class="search-container">
-    <form on:click={alerta} on:submit|preventDefault>
+    <form on:click={alerta}>
       <button type="submit" />
       <input
         class="effect-1"
