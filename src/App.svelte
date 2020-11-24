@@ -17,7 +17,10 @@
 	let pokemon = getPokemon(1)
 
 	async function changePokes() {
-		if (document.getElementById("pesquisa").value > 649) {
+    if (pokesSelecionados.length > 4) {
+      alert("É permitido no máximo 5 PokeMãos na Seleção. Exclua algum!");
+			document.getElementById("pesquisa").value = "";
+    } else if (document.getElementById("pesquisa").value > 649) {
 			alert("Acima do 649 os pokemons estão com problemas nas imagens");
 			document.getElementById("pesquisa").value = "";
 		} else if (document.getElementById("pesquisa").value < 1) {
@@ -95,6 +98,7 @@
 					pokemonSpriteAnimadoBox={poke.spriteAnimado}
           on:click={async () => pokemon = await getPokemon(poke.nationalN)}
           excluirPokemon={() => excluirPokemon(index)}
+          nomeModal={poke.name}
 					/>
 				{/each}
 			</div>

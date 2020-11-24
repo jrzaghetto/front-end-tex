@@ -1,4 +1,6 @@
 <script>
+import ModalBox from "./ModalBox.svelte";
+
   export let current = "bar";
   export let pokemonId;
   export let idPokemonBox;
@@ -7,6 +9,7 @@
   export let pokemonTypeBox2;
   export let pokemonSpriteAnimadoBox;
   export let excluirPokemon;  
+  export let nomeModal;
 </script>
 
 <style>
@@ -166,10 +169,9 @@
   }
 
   .closePokemon:hover {
-    color: #000;
+    color: #fff;
     text-decoration: none;
-    border: 1px solid rgb(255, 159, 28);;
-    background-color: rgb(255, 159, 28);;
+    opacity: 1;
   }
 
   .closePokemon {
@@ -182,11 +184,11 @@
     color: #fff;
     /* text-shadow: 0 1px 0 #fff; */
     opacity: 0.5;
-    border: 1px solid rgb(255, 159, 28);;
+    border: 1px solid #ff4545;
     border-radius: 50%;
     padding-right: 1px;
     padding-bottom: 2px;
-    background-color: rgb(255, 159, 28);;
+    background-color: #ff4545;
   }
 </style>
 
@@ -203,8 +205,14 @@
   </div>
   <div class="imagem-box">
     <img src={pokemonSpriteAnimadoBox} alt={pokemonNameBox} height="40px" />
+    
     <div id="excluirPokemon">
-      <div class="closePokemon" on:click={excluirPokemon}>x</div>
+      <ModalBox 
+      nomeModal={nomeModal}
+      on:click={excluirPokemon}
+      nomePokemon={pokemonNameBox}>
+        <div slot="linkModal" class="closePokemon">x</div>
+      </ModalBox>
     </div>
   </div>
 </div>
