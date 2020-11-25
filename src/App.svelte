@@ -43,7 +43,7 @@
 		}
   }
 
-  $: pokesSelecionados = [];
+  let pokesSelecionados = [];
   
   onMount(async () => {
     pokesSelecionados = [await getPokemon(1)]

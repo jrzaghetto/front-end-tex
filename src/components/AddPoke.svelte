@@ -50,24 +50,6 @@ svg {
 :focus{
   outline: none;
 }
-
-@media screen and (max-width: 600px) {
-  .pesquisa .search-container {
-    float: none;
-  }
-  .pesquisa input[type=text], .pesquisa .search-container button {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  .pesquisa input[type=text] {
-    border: 1px solid #ccc;  
-  }
-
-}
 </style>
 
 <script>
