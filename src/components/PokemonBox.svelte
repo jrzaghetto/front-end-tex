@@ -1,5 +1,5 @@
 <script>
-import ModalBox from "./ModalBox.svelte";
+import ModalBox from "./ModalBoxClose.svelte";
 
   export let current = "bar";
   export let pokemonId;

@@ -6,13 +6,32 @@
 	import DetalhesPokemaos from "./components/DetalhesPokemaos.svelte";
 	import PokemonBox from "./components/PokemonBox.svelte";
   import { getPokemon } from "./components/GetPokemonFunction.svelte";
+	import Loading from './components/Loading.svelte';
   
   function excluirPokemon(nPoke) {
-    console.log('tirando este: ' + nPoke)
     pokesSelecionados.splice(nPoke, 1)
-    console.log(pokesSelecionados)
     pokesSelecionados = [...pokesSelecionados]
-  }
+	}
+	
+	function checarPokemon() {
+		if (pokesSelecionados.length == 0) {
+			return pokemon = {
+				spriteGrande: "images/pergunta.png",
+				name: "Quem é este Pokemon?",
+				nationalN: "???",
+				type: "???",
+				species: "???",
+				height: "???",
+				weight: "???",
+				hp: "10",
+				attack: "10",
+				defense: "10",
+				specialAttack: "10",
+				specialDefense: "10",
+				speed: "170"
+			}
+		}
+	}
 
 	let pokemon = getPokemon(1)
 
@@ -33,12 +52,15 @@
 			alert("Coloque apenas o número, não implementei com string :)");
 			document.getElementById("pesquisa").value = "";
 		} else {
+			window.location.href = '#Loading';
+			let novoPoke = await getPokemon(document.getElementById("pesquisa").value)
+			document.getElementById("pesquisa").value = "";
 			pokesSelecionados = [
 				...pokesSelecionados,
-				await getPokemon(document.getElementById("pesquisa").value),
+				novoPoke,
 			];
-      pokemon = await getPokemon(document.getElementById("pesquisa").value)
-      document.getElementById("pesquisa").value = "";
+      pokemon = novoPoke;
+			window.location.href = '#';
 			return pokesSelecionados;
 		}
   }
@@ -97,7 +119,7 @@
           pokemonTypeBox2={poke.type2}
 					pokemonSpriteAnimadoBox={poke.spriteAnimado}
           on:click={async () => pokemon = await getPokemon(poke.nationalN)}
-          excluirPokemon={() => excluirPokemon(index)}
+          excluirPokemon={() => (excluirPokemon(index), checarPokemon())}
           nomeModal={poke.name}
 					/>
 				{/each}
@@ -126,7 +148,6 @@
 				{/await}
 			</div>	
 		</Conteudo>
-
-
+		<Loading></Loading>
 	</div>
 </main>
