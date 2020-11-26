@@ -18,10 +18,13 @@
 			alert("É permitido no máximo 5 PokeMãos na Seleção. Exclua algum!");
 			document.getElementById("pesquisa").value = "";
 		} else {
-		console.log(pokesSelecionados)
-		pokesSelecionados = [...pokesSelecionados, await getPokemon(document.getElementById("test").value)]
-		return pokesSelecionados
-	}
+			console.log(pokesSelecionados);
+			pokesSelecionados = [
+				...pokesSelecionados,
+				await getPokemon(document.getElementById("test").value),
+			];
+			return pokesSelecionados;
+		}
 	}
 
 	function checarPokemon() {
@@ -77,6 +80,13 @@
 
 	let pokesSelecionados = [];
 
+	async function mostraDetalhesPokemon(pokemonID) {
+		window.location.href = "#Loading";
+		pokemon = await getPokemon(pokemonID);
+		window.location.href = "#";
+		return pokemon;
+	}
+
 	onMount(async () => {
 		pokesSelecionados = [await getPokemon(1)];
 	});
@@ -114,7 +124,7 @@
 	<p>--</p>
 
 	<div id="container">
-		<Nav on:click={addPoke}/>
+		<Nav on:click={addPoke} />
 
 		<AddPoke on:submit={changePokes} />
 
@@ -129,7 +139,7 @@
 						pokemonTypeBox1={poke.type1}
 						pokemonTypeBox2={poke.type2}
 						pokemonSpriteAnimadoBox={poke.spriteAnimado}
-						on:click={async () => (pokemon = await getPokemon(poke.nationalN))}
+						on:click={() => mostraDetalhesPokemon(poke.nationalN)}
 						excluirPokemon={() => (excluirPokemon(index), checarPokemon())}
 						nomeModal={poke.name} />
 				{/each}
