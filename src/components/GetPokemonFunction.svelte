@@ -1,15 +1,15 @@
 <script context="module">
-  import ky from "ky";
+	import ky from "ky";
 
-	export async function getPokemon(id) {
-		const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${id}/`;
-		const pokemonSpecieURL = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
+	export async function getPokemon(qq) {
+		const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${qq}/`;
+		const pokemonSpecieURL = `https://pokeapi.co/api/v2/pokemon-species/${qq}/`;
 
 		const pokemonGeneral = await ky.get(pokemonURL).json();
 		const pokemonSpecie = await ky.get(pokemonSpecieURL).json();
 
 		const {
-			// id,
+			id,
 			name,
 			types,
 			sprites,
@@ -52,8 +52,8 @@
 		const defense = statsTratado.defense;
 		const specialAttack = statsTratado["special-attack"];
 		const specialDefense = statsTratado["special-defense"];
-    const speed = statsTratado.speed;
-    
+		const speed = statsTratado.speed;
+
 		return {
 			nationalN: id,
 			name: name,
@@ -64,7 +64,7 @@
 			specialDefense: specialDefense,
 			speed: speed,
 			type1: typesTratado[0],
-      type2: typesTratado[1],
+			type2: typesTratado[1],
 			type: typesTratado,
 			species: speciesTratado,
 			sprites: sprites,

@@ -1,8 +1,30 @@
 <script>
+  import ModalBoxDetalhesPokemon from "./ModalBoxDetalhesPokemon.svelte";
+  import { pokemonsList } from "./PesquisaDinamica.svelte";
   let src = "images/logo.svg";
 
-  function alerta() {
-    alert("Não implementei a pesquisa :(");
+  import { getPokemon } from "./GetPokemonFunction.svelte";
+
+  let pokemon = getPokemon(1);
+
+  function setData() {
+    var data = document.getElementById("test");
+    var dataValor = document.getElementById("test").value;
+    if (dataValor.length > 1) {
+      data.setAttribute("list", "pokemaos"); //This will add attribute to the input
+    } else {
+      document.getElementById("test").removeAttribute("list"); //This will remove the attribute from the input
+    }
+  }
+
+  function tiraDataList() {
+    document.getElementById("test").removeAttribute("list"); //This will remove the attribute from the input
+  }
+
+  async function abrirDetalhes() {
+    window.location.href = "#Loading";
+    pokemon = await getPokemon(document.getElementById("test").value);
+    window.location.href = "#PokemonDetalhes";
   }
 </script>
 
@@ -70,13 +92,45 @@
 <div class="topnav">
   <img {src} alt="asd" width="80px" />
   <div class="search-container">
-    <form on:click={alerta}>
+    <form>
       <button type="submit" />
       <input
         class="effect-1"
         type="text"
         placeholder="Pesquise um PokeMão..."
-        name="search" />
+        name="test"
+        id="test"
+        align="left"
+        on:click={setData}
+        on:keypress={setData}
+        on:blur={tiraDataList}
+        on:change={abrirDetalhes} />
+
+      <datalist id="pokemaos">
+        {#each pokemonsList as poke}
+          <option value={poke} />
+        {/each}
+      </datalist>
     </form>
   </div>
 </div>
+
+{#await pokemon}
+  <h1>Loading ...</h1>
+{:then pokemon}
+  <ModalBoxDetalhesPokemon
+    on:click
+    pokemonSriteGrande={pokemon.spriteGrande}
+    pokemonName={pokemon.name}
+    pokemonNationalN={pokemon.nationalN}
+    pokemonType={pokemon.type}
+    pokemonSpecies={pokemon.species}
+    pokemonHeight={pokemon.height}
+    pokemonWeight={pokemon.weight}
+    pokemonHp={pokemon.hp}
+    pokemonAttack={pokemon.attack}
+    pokemonDefense={pokemon.defense}
+    pokemonSpecialAttack={pokemon.specialAttack}
+    pokemonSpecialDefense={pokemon.specialDefense}
+    pokemonSpeed={pokemon.speed} />
+{/await}
