@@ -8,23 +8,28 @@
   let pokemon = getPokemon(1);
 
   function setData() {
-    var data = document.getElementById("test");
-    var dataValor = document.getElementById("test").value;
+    var data = document.getElementById("pokemonPesquisa");
+    var dataValor = document.getElementById("pokemonPesquisa").value;
     if (dataValor.length > 1) {
-      data.setAttribute("list", "pokemaos"); //This will add attribute to the input
+      data.setAttribute("list", "pokemaos");
     } else {
-      document.getElementById("test").removeAttribute("list"); //This will remove the attribute from the input
+      document.getElementById("pokemonPesquisa").removeAttribute("list");
     }
   }
 
   function tiraDataList() {
-    document.getElementById("test").removeAttribute("list"); //This will remove the attribute from the input
+    document.getElementById("pokemonPesquisa").removeAttribute("list");
   }
 
   async function abrirDetalhes() {
+    if (pokemonsList.indexOf(document.getElementById("pokemonPesquisa").value) == -1) {
+      document.getElementById("pokemonPesquisa").value = ""
+    } else {
     window.location.href = "#Loading";
-    pokemon = await getPokemon(document.getElementById("test").value);
+    pokemon = await getPokemon(document.getElementById("pokemonPesquisa").value);
     window.location.href = "#PokemonDetalhes";
+    
+    }
   }
 </script>
 
@@ -98,9 +103,8 @@
         class="effect-1"
         type="text"
         placeholder="Pesquise um PokeMão..."
-        name="test"
-        id="test"
-        align="left"
+        name="pokemonPesquisa"
+        id="pokemonPesquisa"
         on:click={setData}
         on:keypress={setData}
         on:blur={tiraDataList}
