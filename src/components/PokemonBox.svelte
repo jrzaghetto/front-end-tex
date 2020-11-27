@@ -163,9 +163,10 @@ import ModalBox from "./ModalBoxClose.svelte";
   }
 
   #excluirPokemon {
-    margin-top: -38px;
-    padding-left: 49px;
+    margin-top: -105px;
+    margin-left: 207px;
     position: absolute;
+    float: right;
   }
 
   .closePokemon:hover {
@@ -205,14 +206,13 @@ import ModalBox from "./ModalBoxClose.svelte";
   </div>
   <div class="imagem-box">
     <img src={pokemonSpriteAnimadoBox} alt={pokemonNameBox} height="40px" />
-    
-    <div id="excluirPokemon">
-      <ModalBox 
-      nomeModal={nomeModal}
-      on:click={excluirPokemon}
-      nomePokemon={pokemonNameBox}>
-        <div slot="linkModal" class="closePokemon">x</div>
-      </ModalBox>
     </div>
   </div>
+<div id="excluirPokemon">
+  <ModalBox 
+  nomeModal={nomeModal}
+  on:click={excluirPokemon}
+  nomePokemon={pokemonNameBox}>
+    <div slot="linkModal" class="closePokemon">x</div>
+  </ModalBox>
 </div>
