@@ -3,10 +3,8 @@
 
 	export async function getPokemon(qq) {
 		const pokemonURL = `https://pokeapi.co/api/v2/pokemon/${qq}/`;
-		const pokemonSpecieURL = `https://pokeapi.co/api/v2/pokemon-species/${qq}/`;
 
 		const pokemonGeneral = await ky.get(pokemonURL).json();
-		const pokemonSpecie = await ky.get(pokemonSpecieURL).json();
 
 		const {
 			id,
@@ -17,7 +15,10 @@
 			stats,
 			height,
 			weight,
+			species
 		} = pokemonGeneral;
+
+		const pokemonSpecie = await ky.get(species.url).json();
 
 		const { genera } = pokemonSpecie;
 
